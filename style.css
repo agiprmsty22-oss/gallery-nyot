@@ -274,3 +274,9 @@ h1 {
         height: 52px;
     }
 }
+@media (max-width: 480px) {
+    .back {
+        bottom: 16px;
+        left: 16px;
+    }
+}
