@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>NYOT | Group</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a href="index.html" class="back">← Kembali</a>
+
+<section class="group-page">
+    <div class="group-grid" id="groupGrid"></div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+    <button class="nav prev" id="prevBtn">‹</button>
+    <img id="lightboxImg" alt="NYOT Moment">
+    <button class="nav next" id="nextBtn">›</button>
+</div>
+
+<!-- DATA -->
+<script src="group.js"></script>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const grid = document.getElementById("groupGrid");
+
+let images = [];
+let currentIndex = 0;
+
+/* ===== LOAD GROUP ===== */
+if (!id || !groups[id]) {
+    grid.innerHTML = "<p>Group tidak ditemukan.</p>";
+} else {
+    groups[id].foto.forEach(img => {
+        grid.insertAdjacentHTML(
+            "beforeend",
+            `<img src="${img}" alt="NYOT Moment" loading="lazy">`
+        );
+    });
+    images = Array.from(document.querySelectorAll(".group-grid img"));
+}
+
+/* ===== LIGHTBOX ===== */
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+// open lightbox
+grid.addEventListener("click", e => {
+    if (e.target.tagName === "IMG") {
+        currentIndex = images.indexOf(e.target);
+        showImage();
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden"; // lock scroll HP
+    }
+});
+
+// close only when click background
+lightbox.addEventListener("click", e => {
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
+
+// prevent button click bubbling
+prevBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    changeImage(-1);
+});
+
+nextBtn.addEventListener("click", e => {
+    e.stopPropagation();
+    changeImage(1);
+});
+
+function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+}
+
+// prev / next logic
+function changeImage(dir) {
+    if (images.length <= 1) return;
+    currentIndex = (currentIndex + dir + images.length) % images.length;
+    showImage();
+}
+
+function showImage() {
+    lightboxImg.style.opacity = 0;
+    setTimeout(() => {
+        lightboxImg.src = images[currentIndex].src;
+        lightboxImg.style.opacity = 1;
+    }, 120);
+}
+
+// keyboard support (laptop kecee)
+document.addEventListener("keydown", e => {
+    if (!lightbox.classList.contains("active")) return;
+
+    if (e.key === "ArrowRight") changeImage(1);
+    if (e.key === "ArrowLeft") changeImage(-1);
+    if (e.key === "Escape") closeLightbox();
+});
+</script>
+
+</body>
+</html>

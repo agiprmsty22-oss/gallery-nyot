@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>NYOT | Sirkel SMA</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <h1>NYOT</h1>
+    <p>Satwa Liar Semua</p>
+
+    <!-- GROUP SLIDER -->
+    <div class="group-slider" id="groupSlider">
+        <a href="group.html?id=1" class="group-card"><img src="images/group1.jpeg"></a>
+        <a href="group.html?id=2" class="group-card"><img src="images/group2.jpeg"></a>
+        <a href="group.html?id=3" class="group-card"><img src="images/group3.jpeg"></a>
+        <a href="group.html?id=4" class="group-card"><img src="images/group4.jpeg"></a>
+        <a href="group.html?id=5" class="group-card"><img src="images/group5.jpeg"></a>
+        <a href="group.html?id=6" class="group-card"><img src="images/group6.jpeg"></a>
+        <a href="group.html?id=7" class="group-card"><img src="images/group7.jpeg"></a>
+        <a href="group.html?id=8" class="group-card"><img src="images/group8.jpeg"></a>
+        <a href="group.html?id=9" class="group-card"><img src="images/group9.jpeg"></a>
+        <a href="group.html?id=10" class="group-card"><img src="images/group10.jpeg"></a>
+    </div>
+</section>
+
+<!-- ===== MEMBERS ===== -->
+<section class="members">
+    <h2>Members</h2>
+    <div class="gallery" id="gallery"></div>
+</section>
+
+<!-- DATA -->
+<script src="data.js"></script>
+
+<!-- RENDER MEMBERS -->
+<script>
+const gallery = document.getElementById("gallery");
+
+for (const id in members) {
+    gallery.insertAdjacentHTML("beforeend", `
+        <a href="profile.html?id=${id}" class="card">
+            <img src="${members[id].foto}">
+            <h3>${members[id].nama}</h3>
+        </a>
+    `);
+}
+</script>
+
+</body>
+</html>
