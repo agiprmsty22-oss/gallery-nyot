@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NYOT | Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -9,9 +10,7 @@
 
 <a href="index.html" class="back">← Kembali</a>
 
-<div class="profile" id="profile">
-</div>
-
+<div class="profile" id="profile"></div>
 
 <script src="data.js"></script>
 <script>
@@ -19,7 +18,7 @@ const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const member = members[id];
 
-// AMBIL USERNAME DARI URL INSTAGRAM
+// ambil username IG
 const username = member.instagram
     .replace("https://www.instagram.com/", "")
     .replace("http://www.instagram.com/", "")
@@ -28,7 +27,10 @@ const username = member.instagram
     .replace("/", "");
 
 document.getElementById("profile").innerHTML = `
-    <img src="${member.foto}" alt="${member.nama}">
+    <div class="profile-photo">
+        <img src="${member.foto}" alt="${member.nama}">
+    </div>
+
     <div class="info">
         <h2>${member.nama}</h2>
 
